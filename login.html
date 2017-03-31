@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>WebRTC - Login</title>
+		<link rel="stylesheet" href="/resources/css/main.css" />
+		<link rel="stylesheet" href="/resources/jquery-ui/jquery-ui.css">    
+		<script src="/resources/jquery-ui/external/jquery/jquery.js"></script>
+		<script src="/resources/jquery-ui/jquery-ui.min.js"></script>
+		<style>
+            .footer {
+				position : absolute;
+				bottom: 0;
+				height: 40px;
+				margin-top : 40px;
+				text-align: center; 
+				margin-left: auto; 
+				margin-right: auto;
+				width: 95%;
+            }
+            .center {
+				position: absolute;
+				left: 0;
+				top: 50%;
+				width: 100%;
+				text-align: center;
+            }
+            .my-textfield {
+			    font: inherit;
+			    color: inherit;
+			    text-align: inherit;
+			    outline: none;
+			    cursor: text;
+            }
+		</style>
+		<script>
+		  $( function() {
+			  $('input:text, input:password, input[type=email]')
+			    .button().addClass('my-textfield');
+			  $('#join').click(function(e) {
+				  if ( $('#room').val() === '' ) {
+					  alert("Please enter the room information!");
+					  $('#room').focus();
+					  return;
+				  }
+				  if ( $('#user').val() === '' ) {
+					  alert("Please enter the User Name!");
+					  $('#user').focus();
+					  return;
+				  }
+				  if ( typeof(Storage) !== "undefined" ) {
+					  sessionStorage.user = $('#user').val();
+					  sessionStorage.room = $('#room').val();
+				  }
+				  $(location).attr('href', '/index.html')
+			  });
+		  });
+		</script>
+    </head>
+    <body>
+	    <header class="ui-widget-content">
+	        <img src="/resources/pics/webrtc.png" alt="WebRTC Logo" height="80" style="float: left;" />
+	        <h1 style="position: relative; text-align: center;">Realtime communication with WebRTC</h1>
+	    </header>
+	    <div class="center">
+			<label for="room"><b>Room: </b></label>
+			<input id="room" /><br><br>
+			<label for="user"><b>Name: </b></label>
+			<input id="user" /><br><br>
+            <button id="join" class="ui-button ui-widget ui-corner-all">Login</button>
+	    </div>
+        <footer class="footer">
+            <small>&copy; Copyright 2017, Prakritish Sen Eshore</small>
+        </footer>
+    </body>
+</html>

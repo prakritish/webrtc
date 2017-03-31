@@ -1,0 +1,14 @@
+{
+  "name": "webrtc",
+  "version": "0.0.1",
+  "description": "WebRTC with Video, Voice & Data Chat",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "httpdispatcher": "^2.0.1",
+    "https": "^1.0.0",
+    "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
+    "node-static": "0.7.7",
+    "socket.io": "1.2.0"
+  }
+}

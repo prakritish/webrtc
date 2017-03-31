@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Realtime communication with WebRTC</title>
+<link rel="stylesheet" href="/resources/css/main.css" />
+<link rel="stylesheet" href="/resources/jquery-ui/jquery-ui.css">
+<style>
+#resizable {
+	width: 150px;
+	height: 150px;
+	padding: 0.5em;
+}
+
+#resizable h3 {
+	text-align: center;
+	margin: 0;
+}
+
+.ui-resizable-helper {
+	border: 1px dotted gray;
+}
+
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+</style>
+
+<script src="/resources/jquery-ui/external/jquery/jquery.js"></script>
+<script src="/resources/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    var room, user;
+</script>
+<script src="/resources/js/ui.js"></script>
+</head>
+
+<body>
+    <div id="dialog-form" title="Room & User Information">
+        <p class="validateTips">All form fields are required.</p>
+        <form>
+            <fieldset>
+                <label for='room'>Room</label>
+                <input type="text" id="room" name="room" class="text ui-widget-content ui-corner-all">
+                <label for="user">User Name</label>
+                <input type="text" id="user" name="user" class="text ui-widget-content ui-corner-all">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <header class="ui-widget-content">
+		<img src="/resources/pics/webrtc.png" alt="WebRTC Logo" height="80" style="float: left;" />
+		<h1 style="position: relative; text-align: center;">Realtime communication with WebRTC</h1>
+    </header>
+    <table style="width: 100%; height: 100%" class="ui-widget-content">
+		<tr style="height: 100%">
+            <td style="width: 33%; height: 100%">
+                <div id="lVideo" style="padding: 0.5cm;" class="ui-widget-content">
+                    <h3 class="ui-widget-header">Local Video</h3>
+                    <video id="localVideo" autoplay muted></video>
+                    <table>
+                        <tr>
+                            <td style="padding: 0.2cm; width: 75%">
+			                    <fieldset>
+			                        <legend>Enable/Disable Media:</legend>
+			                        <label for="audio">Audio</label> 
+			                        <input type="checkbox" name="audio_video" id="audio" checked> 
+			                        <label for="video">Video</label>
+			                        <input type="checkbox" name="audio_video" id="video" checked>
+			                    </fieldset>
+                            </td>
+                            <td style="padding: 0.2cm;">
+                                <button id="mediaConnect" class="ui-button ui-widget ui-corner-all">Connect</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 33%; height: 100%">
+                <table style="height: 100%; width: 100%;">
+                    <tr>
+                        <td style="padding: 0.5cm;" class="ui-widget-content" colspan=2>
+                            <h3 class="ui-widget-header">Chat</h3> 
+                            <textarea id="dataChannelReceive" rows="10" style="width: 100%;"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="ui-widget-content">
+                        <td style="padding: 0.5cm; width: 80%;">
+                            <textarea id="dataChannelSend" rows="2" style="width: 100%; height: 100%"></textarea>
+                        </td>
+                        <td style="padding: 0.5cm;">
+                            <button class="ui-button ui-widget ui-corner-all" id="sendButton">Send</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+			<td style="width: 34%; height: 100%">
+				<div id='rVideo' class="ui-widget-content" style="padding: 0.5cm; height: 100%">
+					<h3 class="ui-widget-header">Remote Video</h3>
+					<video id="remoteVideo" autoplay></video>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/resources/js/lib/adapter.js"></script>
+	<script src="/resources/js/main.js"></script>
+
+</body>
+
+</html>
